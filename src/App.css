@@ -1,0 +1,260 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fafafa;
+  color: #2c3e50;
+}
+
+.app-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(to bottom, #ffffff, #f5f7fa);
+}
+
+.sidebar {
+  width: 400px;
+  max-width: 100%;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  overflow-y: auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 
+    0 0 20px rgba(0, 0, 0, 0.05),
+    0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.handle-bar {
+  width: 40px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 4px;
+  margin: 8px 0;
+  display: none;
+}
+
+/* Hide scrollbar but keep functionality */
+.sidebar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 60%;
+    z-index: 1000;
+    transform: translateY(calc(100% - 100px));
+    border-radius: 20px 20px 0 0;
+    border-right: none;
+    background: #fff;
+    padding: 0.5rem 1rem;
+  }
+  
+  .sidebar.expanded {
+    transform: translateY(0);
+  }
+
+  .handle-bar {
+    display: block;
+    cursor: grab;
+  }
+
+  .handle-bar:active {
+    cursor: grabbing;
+  }
+
+  .sidebar h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .map-container {
+    height: calc(100vh - 60px);
+    width: 100%;
+  }
+
+  .categories {
+    display: flex;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    margin: 0.5rem -1rem;
+    padding: 0.5rem 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .categories button {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+  }
+
+  /* Add a subtle shadow to indicate the sheet */
+  .sidebar::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+    border-radius: 20px 20px 0 0;
+  }
+
+  /* Ensure the map takes full height when sidebar is collapsed */
+  .map-container {
+    height: calc(100vh - 60px);
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar.expanded + .map-container {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.categories button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.categories button:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.categories button.active {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.error {
+  background: #ffe6e6;
+  color: #d63384;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.venues-list {
+  margin-top: 1rem;
+}
+
+.venue-item {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  background: white;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
+
+.venue-item h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.venue-item p {
+  margin: 0;
+  color: #666;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  background: #e9ecef;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    position: relative;
+  }
+  
+  .map-container {
+    width: 100%;
+  }
+}
+
+.map-placeholder {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
+.map-placeholder p {
+  margin: 0.5rem 0;
+}
